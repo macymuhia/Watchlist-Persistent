@@ -1,22 +1,28 @@
-<!DOCTYPE html>
-<html lang="en">
+<!-- Extend bootstrap -->
+<!-- Extend base -->
+{% extends 'base.html' %}
+<!-- Import macros -->
+{% import 'macros.html' as macro %}
+<!-- Navigation block -->
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <!-- Title -->
-    {% if title %}
-    <title>
-        {{title}}
-    </title> {% else %}
-    <title>Movie Reviews</title>
-    {% endif %}
+<!-- Content Block -->
 
-</head>
+{% block content %}
+<!-- Popular Movies -->
+<h3>Popular Movies</h3>
+<ul>
+    {{macro.displayMovieList(popular)}}
+</ul>
 
-<body>
-    <h1>{{ text }}</h1>
-</body>
+<!-- Now Showing Movies -->
+<h3>Now Showing Movies</h3>
+<ul>
+    {{macro.displayMovieList(now_showing)}}
+</ul>
 
-</html>
+<!-- Upcoming Movies -->
+<h3>Upcoming Movies</h3>
+<ul>
+    {{macro.displayMovieList(up_coming)}}
+</ul>
+{% endblock %}

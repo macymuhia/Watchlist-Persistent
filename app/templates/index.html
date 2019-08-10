@@ -1,28 +1,37 @@
-<!-- Extend bootstrap -->
 <!-- Extend base -->
 {% extends 'base.html' %}
 <!-- Import macros -->
 {% import 'macros.html' as macro %}
 <!-- Navigation block -->
 
+<!-- Styles block -->
+{% block styles %} {{super()}}
+<link rel="stylesheet" href="{{url_for('static', filename='css/styles.css')}}"> {% endblock %}
+
 <!-- Content Block -->
 
-{% block content %}
-<!-- Popular Movies -->
-<h3>Popular Movies</h3>
-<ul>
-    {{macro.displayMovieList(popular)}}
-</ul>
+<div class="container-fluid">
+    {% block content %}
+    <form action="">
+        <input class="form-control" type="text" name="movie_query" id="" placeholder="Search for a movie">
+        <input type="submit" value="Submit" class="btn btn-default"></form>
 
-<!-- Now Showing Movies -->
-<h3>Now Showing Movies</h3>
-<ul>
-    {{macro.displayMovieList(now_showing)}}
-</ul>
+    <!-- Popular Movies -->
+    <h3>Popular Movies</h3>
+    <ul>
+        {{macro.displayMovieList(popular)}}
+    </ul>
 
-<!-- Upcoming Movies -->
-<h3>Upcoming Movies</h3>
-<ul>
-    {{macro.displayMovieList(up_coming)}}
-</ul>
-{% endblock %}
+    <!-- Now Showing Movies -->
+    <h3>Now Showing Movies</h3>
+    <ul>
+        {{macro.displayMovieList(now_showing)}}
+    </ul>
+
+    <!-- Upcoming Movies -->
+    <h3>Upcoming Movies</h3>
+    <ul>
+        {{macro.displayMovieList(up_coming)}}
+    </ul>
+    {% endblock %}
+</div>

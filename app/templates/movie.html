@@ -1,7 +1,15 @@
-<!-- Navigation block -->
-{% block navbar %} {% endblock %}
+{% extends 'base.html' %}
 
 <!-- Content block -->
 {% block content %}
-<h1>movie: {{ id }}</h1>
-{% endblock %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 posterPath" style="background: url({{movie.poster}}) no-repeat center center"></div>
+        <div class="col-md-6 movie-details">
+            <h3> {{movie.title}} </h3>
+            <p class="overview"> {{movie.overview}} </p>
+            <p class="ratings"> <b>{{movie.vote_average}}</b> </p>
+            <i> {{ movie.vote_count }} </i>
+        </div>
+    </div>
+</div>{% endblock %}

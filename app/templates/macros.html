@@ -1,7 +1,14 @@
 {% macro displayMovieList(movie_list) %}
 <!-- Movies list -->
 {% for movie in movie_list %}
-<li>
-    {{movie.title}}
-</li>
+<div class="col-md-2 movie-card">
+
+    <img class="img-responsive" src="{{movie.poster}}" alt="">
+    <li class="text-center">
+        <!-- https://api.themoviedb.org/3/movie/{movie.id}?api_key={} -->
+        <a href="/movie/{{movie.id}}" target="_blank">
+                {{movie.title | truncate(10)}}
+            </a>
+    </li>
+</div>
 {% endfor %} {% endmacro%}

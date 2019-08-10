@@ -1,17 +1,15 @@
 from flask import render_template, request, redirect, url_for
 
-from app import app
+from . import main
 
-from .request import get_movies, get_movie, search_movie
+from ..request import get_movies, get_movie, search_movie
 
-from .models import reviews
+from ..models import Review
 
 from .forms import ReviewForm
 
-Review = reviews.Review
-
 # views
-@app.route("/")
+@main.route("/")
 def index():
     """
     View root page function that returns the index page and its data
@@ -24,7 +22,6 @@ def index():
     up_coming_movies = get_movies("upcoming")
     # print(popular_movies)
 
-    message = "Hellooo Macy"
     title = "Home - Best Movie Review Website"
 
     search_movie = request.args.get('movie_query')
@@ -32,11 +29,11 @@ def index():
         return redirect(url_for('search', movie_name=search_movie))
     else:
         return render_template(
-        "index.html", text=message, title=title, popular=popular_movies, now_showing=now_showing_movies, up_coming=up_coming_movies
+        "index.html", title=title, popular=popular_movies, now_showing=now_showing_movies, up_coming=up_coming_movies
     )
 
 
-@app.route("/movie/<int:id>")
+@main.route("/movie/<int:id>")
 def movie(id):
     '''
     View movie page function that returns the movie details page and its data
@@ -47,7 +44,7 @@ def movie(id):
     return render_template("movie.html", title=title, movie=movie, reviews=reviews)
 
 
-@app.route('/search/<movie_name>')
+@main.route('/search/<movie_name>')
 def search(movie_name):
     '''
     View function to display the search results
@@ -58,7 +55,7 @@ def search(movie_name):
     title = f'Search results for {movie_name}:'
     return render_template('search.html',movies=searched_movies, title=title)
 
-@app.route('/movie/review/new/<int:id>', methods=['GET', 'POST'])
+@main.route('/movie/review/new/<int:id>', methods=['GET', 'POST'])
 def new_review(id):
     form = ReviewForm()
     movie = get_movie(id)

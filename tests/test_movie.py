@@ -1,10 +1,11 @@
 import unittest
-from models import movie
-
-Movie = movie.Movie
+from app.models import Movie
 
 
 class MovieTest(unittest.TestCase):
+    '''
+    Test Class to test the behaviour of the Movie class
+    '''
     def setUp(self):
         self.new_movie = Movie(
             1234, "Oceans8", "A heist movie", "khsjha27hbs", 8.5, 129993
@@ -27,7 +28,3 @@ class MovieTest(unittest.TestCase):
         self.assertEqual(self.new_movie.rating, 8.5)
 
         self.assertEqual(self.new_movie.vote_count, 129993)
-
-
-if __name__ == "__main__":
-    unittest.main()

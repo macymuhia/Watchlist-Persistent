@@ -2,3 +2,6 @@
 virtual/
 __pycache__/
 instance/
+.idea/
+.vscode/
+start.sh

@@ -4,7 +4,8 @@ from ..request import get_movies, get_movie, search_movie
 from ..models import Review, User
 from .forms import ReviewForm, UpdateProfile
 from flask_login import login_required, login_user, logout_user
-from .. import db
+from .. import db, photos
+# from ..email import mail_message
 
 
 # views
@@ -76,6 +77,7 @@ def new_review(id):
         new_review = Review(movie.id, title, movie.poster, review)
 
         new_review.save_review()
+        # mail_message('New Movie Review!', 'email/welcome_user', user.email, user=user)
         
         return redirect(url_for('main.movie', id=id))
 
@@ -100,3 +102,14 @@ def update_profile(uname):
         return redirect(url_for('.profile',uname=user.username))
 
     return render_template('profile/update.html',form =form)
+
+@main.route('/user/<uname>/update/pic',methods= ['POST'])
+@login_required
+def update_pic(uname):
+    user = User.query.filter_by(username = uname).first()
+    if 'photo' in request.files:
+        filename = photos.save(request.files['photo'])
+        path = f'photos/{filename}'
+        user.profile_pic_path = path
+        db.session.commit()
+    return redirect(url_for('main.profile',uname=uname))
